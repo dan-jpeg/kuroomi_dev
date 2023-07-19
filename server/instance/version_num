@@ -1,0 +1,3 @@
+version_num
+8413eed7d435
+DELETE FROM alembic_version;SELECT * FROM alembic_version;
