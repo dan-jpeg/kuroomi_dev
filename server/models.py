@@ -78,6 +78,8 @@ class Property(db.Model, SerializerMixin):
     price = db.Column(db.Integer)
     number_of_bedrooms = db.Column(db.Integer)
     borough = db.Column(db.String)
+    img_url = db.Column(db.String)
+
     owner_id = db.Column(db.Integer, db.ForeignKey('owners.id'))
 
     validates('address')

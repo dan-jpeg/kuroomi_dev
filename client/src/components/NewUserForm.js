@@ -16,7 +16,8 @@ function NewUserForm({addProduct, updatePostFormData}){
                 <input onChange={updatePostFormData} type="text" name="email" placeholder="email" required/>
                 <input onChange={updatePostFormData} type="text" name="username" placeholder="username" required/>
                 <input onChange={updatePostFormData} type="text" name="password" placeholder="password" required/>
-                <input type="submit" value="add product"/>
+                <input onChange={updatePostFormData} type="text" name="budget" placeholder="budget" required/>
+                <input type="submit" value="continue"/>
             </form>}
         </div>
     )

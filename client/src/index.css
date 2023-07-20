@@ -4,7 +4,8 @@
 }
 
 body {
-  margin-left: -10%;
+  border: 0;
+  margin: 0;
 }
 
 * {
@@ -14,9 +15,10 @@ body {
   font-family: "Good mono";
 }
 
+
 .splash-div {
   min-height: 100vh;
-  min-width: 100vw;
+  min-width: 80vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,7 +30,7 @@ body {
 
 .splash-div-dark {
   min-height: 100vh;
-  min-width: 100vw;
+  min-width: 80vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,6 +88,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding-bottom: 10vh;
+  margin-left: 5vw
 }
 
 nav a {
@@ -94,9 +97,20 @@ nav a {
   background-color: white;
  
   margin: 1rem;
-  padding: 1rem;
+  padding: .2rem .33rem .2rem .33rem;
   text-decoration: none;
   color: black;
+  cursor: pointer;
+}
+
+nav a:hover {
+  font-size: 1rem;
+  display: inline-block;
+  background-color: #354531;
+  margin: 1rem;
+  padding: .2rem .33rem .2rem .33rem;
+  text-decoration: none;
+  color: #e7eae0;
   cursor: pointer;
 }
 
@@ -113,10 +127,14 @@ header h1 {
   padding-bottom: 2vh;
 }
 
+body li {
+  list-style-type: none;
+}
 
 
-
-
+#neighborhood-input {
+  padding-bottom: .2rem;
+}
 
 
 
@@ -126,7 +144,9 @@ header h1 {
 }
 
 
-
+.user-nav span {
+  font-size: calc(3px +.2rem);
+}
 
 label {
   font-weight: bold;
@@ -212,3 +232,45 @@ ul {
   font-size: calc(10px + 2rem);
 }
 
+.content {
+  min-height: 80vh;
+}
+
+.propParent { 
+  display: grid; 
+  grid-template-columns: repeat(6, 1fr); 
+  grid-template-rows: repeat(6, 1fr); 
+  grid-column-gap: 0px;
+  grid-row-gap: 0px; 
+}
+
+.p-info { 
+  grid-area: 3 / 1 / 5 / 4;
+  padding-left: 10vw; 
+} 
+.p-img { 
+  grid-area: 2 / 4 / 5 / 7; 
+  width: 33vw;
+  height: 25vh;
+    } 
+.p-img img {
+  height: auto;
+  width: auto;
+  object-fit: contain;
+}
+.p-owner { grid-area: 5 / 1 / 7 / 7; } 
+.p-address { grid-area: 1 / 1 / 2 / 7; 
+  text-align: center;} 
+
+
+.super-scroll {
+  background-image: url(./components/bg_v4.png);
+  background-size: cover;
+  width: 100vw;
+  height: 400vh;
+  max-width: 1600px;
+}
+
+NavLink {
+  font-size: 2em;
+}

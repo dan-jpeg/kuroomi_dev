@@ -1,18 +1,19 @@
 import '../App.css';
-import React, {useState, useEffect} from 'react'
-import { Route, Switch } from "react-router-dom"
+import React, {useState, useEffect, useRef } from 'react'
+import { Route, Switch, useHistory } from "react-router-dom"
 import Splash from './Splash';
 import NavBar from './NavBar';
 import PropertyList from './PropertyList';
 import NewPropertyForm from './NewPropertyForm';
 import NewOwnerForm from './NewOwnerForm';
 import NewUserForm from './NewUserForm';
-import axios from 'axios';
 import Login from './Login';
 import OwnerList from './OwnerList';
 import Property from './Property';
 import PropertySearch from './PropertySearch';
-
+import SuperScroll from './SuperScroll';
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 function App() {
 
@@ -42,7 +43,7 @@ const [neighborhood, setNeigborhood] = useState([])
 
 //***/ login states *
 
-const [adminMode, setAdminMode] = useState(true)
+const [adminMode, setAdminMode] = useState(false)
 const [loginData, setLoginData] = useState({ username: '', password: '' });
 const [loggedin, setLoggedin] = useState(false)
 const [currentUser, setCurrentUser] = useState('null')
@@ -124,7 +125,7 @@ const sortedProperties = [...filteredProperties].sort((a, b) => {
 });
 
 const propertyComponents = sortedProperties.map((property) => (
-  <Property key={property.id} property={property} handleClickPropert={handleClickProperty} />
+  <Property key={property.id} property={property} handleClickPropert={handleClickProperty} owners={owners} />
 ));
 
 
@@ -170,7 +171,7 @@ function addUser(event){
     body: JSON.stringify(postFormData)
   })
   .then(response => response.json())
-  .then(newProperty => setProperties(properties => [...properties, newProperty]))
+  .then(newUser => setUsers(users => [...users, newUser]))
 }
 
 function addOwner(event){
@@ -185,7 +186,7 @@ function addOwner(event){
     body: JSON.stringify(postFormData)
   })
   .then(response => response.json())
-  .then(newProperty => setProperties(properties => [...properties, newProperty]))
+  .then(newOwner => setOwners(owners => [...owners, newOwner]))
 }
 
 const handleLogin = (username) => {
@@ -193,13 +194,199 @@ const handleLogin = (username) => {
   setCurrentUser(username)
   console.log(currentUser)
   setLoggedin(true)
+  setAdminMode(true)
 
 };
 
+const boxVariant = {
+  visible: { y:900, x:150,  opacity: 1, scale: 1, transition: { duration: 1 } },
+  hidden: { y:900, x:0,  opacity: 0, scale: 0 }
+};
+
+const box2Variant = {
+  visible: { y:933, x:550,  opacity: 1, scale: 1, transition: { duration: 1 } },
+  hidden: { y:1100, opacity: 0, scale: 0 }
+};
+
+const box3Variant = {
+  visible: { y:1000, x:250, opacity: 1, scale: 1, transition: { duration: 1 } },
+  hidden: { y:1140, opacity: 0, scale: 0 }
+};
+
+const box4Variant = {
+  visible: { y:1200, x:150, opacity: 1, scale: 1, transition: { duration: 1 } },
+  hidden: { y:1200, opacity: 0, scale: 0 }
+};
+
+const box5Variant = {
+  visible: { y:1200, x:150, opacity: 1, scale: 1, transition: { duration: 1 } },
+  hidden: { y:1200, opacity: 0, scale: 0 }
+};
+
+const Box = ({ num }) => {
+
+  const control = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      control.start("visible");
+    } else {
+      control.start("hidden");
+    }
+  }, [control, inView]);
+
+  return (
+    <motion.div
+      className="box"
+      ref={ref}
+      variants={boxVariant}
+      initial="hidden"
+      animate={control}
+    >
+      <h1> find qualified roommates </h1>
+      
+    </motion.div>
+  );
+};
+
+const Box2 = ({ num }) => {
+
+  const control = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      control.start("visible");
+    } else {
+      control.start("hidden");
+    }
+  }, [control, inView]);
+
+  return (
+    <motion.div
+      className="box"
+      ref={ref}
+      variants={box2Variant}
+      initial="hidden"
+      animate={control}
+    >
+      <h1> fast </h1>
+     
+    </motion.div>
+  );
+};
+
+
+const Box3 = ({ num }) => {
+
+  const control = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      control.start("visible");
+    } else {
+      control.start("hidden");
+    }
+  }, [control, inView]);
+
+  return (
+    <motion.div
+      className="box"
+      ref={ref}
+      variants={box3Variant}
+      initial="hidden"
+      animate={control}
+    >
+      <h3> only on kuroomi </h3>
+
+     
+    </motion.div>
+  );
+};
+const Box4 = ({ num }) => {
+
+  const control = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      control.start("visible");
+    } else {
+      control.start("hidden");
+    }
+  }, [control, inView]);
+
+  return (
+    <motion.div
+      className="box"
+      ref={ref}
+      variants={box4Variant}
+      initial="hidden"
+      animate={control}
+    >
+      <h1> find qualified tenants </h1>
+    </motion.div>
+  );
+};
+
+const Box5 = ({ num }) => {
+
+  const control = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      control.start("visible");
+    } else {
+      control.start("hidden");
+    }
+  }, [control, inView]);
+
+  return (
+    <motion.div
+      className="box"
+      ref={ref}
+      variants={box5Variant}
+      initial="hidden"
+      animate={control}
+    >
+      <h2> fast </h2>
+    </motion.div>
+  );
+};
+
+const Box6 = ({ num }) => {
+
+  const control = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      control.start("visible");
+    } else {
+      control.start("hidden");
+    }
+  }, [control, inView]);
+
+  return (
+    <motion.div
+      className="box"
+      ref={ref}
+      variants={box5Variant}
+      initial="hidden"
+      animate={control}
+    >
+      <h3> only on kuroomi</h3>
+    </motion.div>
+  );
+};
 
 
 function updatePostFormData(event){
     setPostFormData({...postFormData, [event.target.name]: event.target.value})
+    console.log(postFormData)
   }
 
   function updatePatchFormData(event){
@@ -211,17 +398,45 @@ function updatePostFormData(event){
     console.log(loginData)
   }
 
+  const ref = useRef(null);
+  const history = useHistory()
+
+  function handleClick() {
+    const element = document.getElementById('content')
+    console.log(element)
+    element.scrollIntoView({ behavior: 'smooth' });
+    history.push('/search');
+
+  }
+
 return (
     <div className="app">
-      <Splash />
+    
+    <div className='super-scroll'>
+        {/* <Box num={'find qualified roommates'} />
+        <Box num={'fast'} />
+        <Box num={'find qualified tenants. fast'} />
+        <Box num={'bad l*ndlord? read reviews before you sign.'} /> */}
+        <Box />
+        <Box2 />
+        <Box3 />
+        <Box4 />
+        <Box5 />
+        <Box6 />
+        </div>
+        <div>
+      <Splash searchFilters={searchFilters} handleInputChange={handleInputChange} handleClick={handleClick} />
       <NavBar adminMode={adminMode} currentUser={currentUser} loggedin={loggedin}/>
      
-      <PropertySearch sortedProperties={sortedProperties} propertyComponents={propertyComponents} searchFilters={searchFilters} sortCriteria={sortCriteria} handleInputChange={handleInputChange} handleSortChange={handleSortChange}/>
-      {/* <PropertyList sortedProperties={sortedProperties} handleClickProperty={handleClickProperty}/> */}
-      {/* <Login handleLogin={handleLogin} loginData={loginData} setLoginData={setLoginData} updateLoginFormData={updateLoginFormData}/> */}
-      {/* <Header /> */}
+      <div className='content' id='content'>
       <Switch>
+      <Route path="/login">
+      <Login handleLogin={handleLogin} loginData={loginData} setLoginData={setLoginData} updateLoginFormData={updateLoginFormData} loggedin={loggedin} currentUser={currentUser}/>
+        </Route>
         <Route exact path="/">
+        </Route>
+        <Route path="/search">
+        <PropertySearch sortedProperties={sortedProperties} propertyComponents={propertyComponents} searchFilters={searchFilters} sortCriteria={sortCriteria} handleInputChange={handleInputChange} handleSortChange={handleSortChange}/>
         </Route>
         <Route path="/owners">
           <OwnerList owners={owners} handleClickOwner={handleClickOwner} />
@@ -230,7 +445,7 @@ return (
           <NewPropertyForm addProperty={addProperty} updatePostFormData={updatePostFormData} />
         </Route>
         <Route path="/add_user">
-          <NewUserForm addUser={addUser} updatePostFormData={updatePostFormData} />
+        <NewUserForm addUser={addUser} updatePostFormData={updatePostFormData} />
         </Route>
         <Route path="/add_owner">
           <NewOwnerForm addOwner={addOwner} updatePostFormData={updatePostFormData} />
@@ -240,7 +455,8 @@ return (
           <UpdateProductForm updateProduct={updateProduct} setIdToUpdate={setIdToUpdate} updatePatchFormData={updatePatchFormData} products={products}/>
         </Route> */}
       </Switch>
-      
+      </div>
+      </div>
     </div>
   );
 }

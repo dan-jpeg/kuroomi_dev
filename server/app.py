@@ -40,7 +40,7 @@ class PropertiesClass(Resource):
         response_body = []
 
         for property in properties:
-            response_body.append(property.to_dict(only=('id','address','neighborhood','borough','price','owner_id')))
+            response_body.append(property.to_dict(only=('id','address','neighborhood','borough','price','owner_id','img_url')))
 
         return make_response(jsonify(response_body), 200)
         
@@ -127,15 +127,15 @@ class UsersClass(Resource):
 
         return make_response(jsonify(response_body), 200)
         
-    # def post(self):
-    #     json_data = request.get_json()
-    #     new_user = User(name=json_data.get('name'), budget=json_data.get('budget'), username=json_data.get('username'), password=json_data.get('password'))
-    #     db.session.add(new_user)
-    #     db.session.commit()
+    def post(self):
+        json_data = request.get_json()
+        new_user = User(name=json_data.get('name'), email=json_data.get('email'), budget=json_data.get('budget'), username=json_data.get('username'), password=json_data.get('password'))
+        db.session.add(new_user)
+        db.session.commit()
 
-    #     response_body = new_user.to_dict()
+        response_body = new_user.to_dict()
 
-    #     return make_response(jsonify(response_body), 201)
+        return make_response(jsonify(response_body), 201)
 
 api.add_resource(UsersClass, '/users')
 

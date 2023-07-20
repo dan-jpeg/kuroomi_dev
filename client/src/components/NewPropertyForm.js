@@ -13,7 +13,7 @@ function NewPropertyForm({addProperty, updatePostFormData}){
                 setFormSubmitted(formSubmitted => !formSubmitted)
             }}>
                 <input onChange={updatePostFormData} type="text" name="address" placeholder="address" required/>
-                <input onChange={updatePostFormData} type="text" name="neigborhood" placeholder="email" required/>
+                <input onChange={updatePostFormData} type="text" name="neighborhood" placeholder="neigbhborhood" required/>
                 <input onChange={updatePostFormData} type="numerical" name="price" placeholder="price" required/>
                 <input onChange={updatePostFormData} type="numerical" name="number_of_bedrooms" placeholder="# of bedrooms" required/>
                 <input onChange={updatePostFormData} type='text' nane='borough' placeholder='borough' />
